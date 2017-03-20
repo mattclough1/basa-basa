@@ -1,0 +1,19 @@
+{
+  "name": "basabasa",
+  "version": "1.0.0",
+  "description": "A JS module for creating image comparison sliders",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattclough1/basabasa.git"
+  },
+  "author": "Matt Clough",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattclough1/basabasa/issues"
+  },
+  "homepage": "https://github.com/mattclough1/basabasa#readme"
+}
