@@ -197,7 +197,7 @@ class Basa {
 	}
 }
 
-export default function basabasa(selector, options) {
+export default function basaBasa(selector, options) {
 	let elements;
 	if (typeof(selector) === 'string') {
 		elements = Array.from(document.querySelectorAll(selector));
@@ -206,7 +206,7 @@ export default function basabasa(selector, options) {
 	} else if (selector instanceof NodeList) {
 		elements = Array.from(selector);
 	} else if (!selector) {
-        elements = Array.from(document.querySelectorAll('.basabasa'));
+        elements = Array.from(document.querySelectorAll('.basa-basa'));
 	} else {
         console.log(`Argument "${selector}" isn't a valid argument for basabasa`);
     }

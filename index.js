@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-exports.default = basabasa;
+exports.default = basaBasa;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -232,7 +232,7 @@ var Basa = function () {
 	return Basa;
 }();
 
-function basabasa(selector, options) {
+function basaBasa(selector, options) {
 	var elements = void 0;
 	if (typeof selector === 'string') {
 		elements = Array.from(document.querySelectorAll(selector));
@@ -241,7 +241,7 @@ function basabasa(selector, options) {
 	} else if (selector instanceof NodeList) {
 		elements = Array.from(selector);
 	} else if (!selector) {
-		elements = Array.from(document.querySelectorAll('.basabasa'));
+		elements = Array.from(document.querySelectorAll('.basa-basa'));
 	} else {
 		console.log('Argument "' + selector + '" isn\'t a valid argument for basabasa');
 	}
