@@ -4,6 +4,8 @@
   "description": "A JS module for creating image comparison sliders",
   "main": "index.js",
   "scripts": {
+    "start": "npm run build",
+    "build": "babel src/index.js --out-file index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/mattclough1/basabasa/issues"
   },
-  "homepage": "https://github.com/mattclough1/basabasa#readme"
+  "homepage": "https://github.com/mattclough1/basabasa#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-preset-latest": "^6.24.0"
+  }
 }
