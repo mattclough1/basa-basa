@@ -240,6 +240,8 @@ function basabasa(selector, options) {
 		elements = [selector];
 	} else if (selector instanceof NodeList) {
 		elements = Array.from(selector);
+	} else if (!selector) {
+		elements = document.querySelectorAll('.basabasa');
 	} else {
 		console.log('Argument "' + selector + '" isn\'t a valid argument for basabasa');
 	}
