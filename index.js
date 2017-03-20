@@ -99,11 +99,9 @@ var ComparisonSlider = function () {
 	_createClass(ComparisonSlider, [{
 		key: 'init',
 		value: function init() {
-			console.log('init');
 			// Set underImage to 100% width
-			this.underImage.style.cssText = 'display: block; width: 100%;';
 			this.overImage.style.cssText = 'display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover; max-width: none;';
-			console.log('display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover; max-width: none;');
+			this.underImage.style.cssText = 'display: block; width: 100%;';
 
 			// Set padding for handle overflow
 
