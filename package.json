@@ -1,6 +1,6 @@
 {
   "name": "basabasa",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A JS module for creating image comparison sliders",
   "main": "index.js",
   "scripts": {
