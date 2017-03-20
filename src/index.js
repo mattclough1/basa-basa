@@ -99,6 +99,9 @@ class ComparisonSlider {
 	}
 
 	init() {
+        // Set slider bounds
+        this.setSliderBounds();
+        
 		// Set overImage styles,
         this.overImage.style.cssText = `display: block; width: ${window.getComputedStyle(this.underImage).width}; height: 100%; object-fit: cover; max-width: none;`;
 
