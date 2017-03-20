@@ -1,5 +1,5 @@
 class BasaBasa {
-	constructor(elem, opts) {
+	constructor(elem, opts = {}) {
 		// Set up state
 		this.state = {
 			dimensions: {},
