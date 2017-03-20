@@ -1,5 +1,5 @@
 class ComparisonSlider {
-	constructor(elem, opts = {}) {
+	constructor(ogElem, opts = {}) {
 		// Set up state
 		this.state = {
 			dimensions: {},
@@ -11,7 +11,7 @@ class ComparisonSlider {
 				height: 100
 			}
 		}
-		this.elem = elem;
+		this.ogElem = ogElem;
 		this.options = opts;
 
 		// Bind event handlers
@@ -24,9 +24,12 @@ class ComparisonSlider {
 		this.handleWindowResize = this.handleWindowResize.bind(this);
         this.init = this.init.bind(this);
 
-		// Store images and add onload listeners
+		// Store images
 		this.overImage = elem.children[0];
 		this.underImage = elem.children[1];
+
+        // Set underImage width to 100%
+        this.underImage.style.cssText = 'display: block; width: 100%;';
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
@@ -41,6 +44,11 @@ class ComparisonSlider {
 		// Create handle element
 		this.handle = document.createElement('div');
 		this.handle.classList.add('comparison-slider__handle');
+        // Set handle class to class in options if it exists
+        if (this.options.handleClass) {
+            const handleClass = this.handle.getAttribute('class');
+            this.handle.setAttribute('class', `${handleClass} ${this.options.handleClass}`);
+        }
         this.handle.style.cssText = `
             width: 60px;
             height: 60px;
@@ -53,7 +61,12 @@ class ComparisonSlider {
             box-shadow: 0 3px 5px rgba(0,0,0,0.15);
             cursor: -webkit-grab;
         `;
-		this.handle.setAttribute('class', `${this.handle.getAttribute('class')} ${this.options.handleClass}`);
+
+        // Set up drag start for non-touch devices
+		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
+
+		// Set up drag start for touch devices
+		this.handle.addEventListener('touchstart', this.handleSliderDragStart);
 
 		// Create shade element
 		this.shade = document.createElement('div');
@@ -73,32 +86,25 @@ class ComparisonSlider {
 		this.elem.appendChild(this.shade);
 		this.wrapper.appendChild(this.elem);
 
-		// Set up start for non-touch devices
-		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
-
-		// Set up start for touch devices
-		this.handle.addEventListener('touchstart', this.handleSliderDragStart);
-
 		// Set initial position of shade
 		this.shade.style.width = `${this.state.percent.width}%`;
 
-		// Replace the original thing
-		elem.innerHTML = '';
-		elem.appendChild(this.wrapper);
-		elem.imageCompare = this;
+        // Replace the original thing
+		this.ogElem.innerHTML = '';
+		this.ogElem.appendChild(this.wrapper);
+		this.ogElem.imageCompare = this;
 
         // Init on window load
         window.addEventListener('load', this.init);
 	}
 
 	init() {
-		// Set underImage to 100% width
+		// Set overImage styles,
         this.overImage.style.cssText = `display: block; width: ${window.getComputedStyle(this.underImage).width}; height: 100%; object-fit: cover; max-width: none;`;
-		this.underImage.style.cssText = 'display: block; width: 100%;';
 
 		// Set padding for handle overflow
 		const { width: handleWidth } = window.getComputedStyle(this.handle);
-		const handlePadding = parseInt(handleWidth)/ 2;
+		const handlePadding = parseInt(handleWidth) / 2;
 		this.wrapper.style.cssText = `padding-left: ${handlePadding}px; padding-right: ${handlePadding}px`;
 
 		// Setup window resize listeners
