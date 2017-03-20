@@ -22,6 +22,7 @@ class ComparisonSlider {
 		this.setSliderBounds = this.setSliderBounds.bind(this);
 		this.setSliderDimensions = this.setSliderDimensions.bind(this);
 		this.handleWindowResize = this.handleWindowResize.bind(this);
+        this.init = this.init.bind(this);
 
 		// Store images and add onload listeners
 		this.overImage = elem.children[0];
