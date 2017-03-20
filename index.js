@@ -41,8 +41,8 @@ var ComparisonSlider = function () {
 		this.init = this.init.bind(this);
 
 		// Store images
-		this.overImage = elem.children[0];
-		this.underImage = elem.children[1];
+		this.overImage = ogElem.children[0];
+		this.underImage = ogElem.children[1];
 
 		// Set underImage width to 100%
 		this.underImage.style.cssText = 'display: block; width: 100%;';
