@@ -50,18 +50,20 @@ class Basa {
             const handleClass = this.handle.getAttribute('class');
             this.handle.setAttribute('class', `${handleClass} ${this.options.handleClass}`);
         }
-        this.handle.style.cssText = `
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #fff;
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translate(50%, -50%);
-            box-shadow: 0 3px 5px rgba(0,0,0,0.15);
-            cursor: -webkit-grab;
-        `;
+        if (!this.options.handleClass) {
+            this.handle.style.cssText = `
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-color: #fff;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translate(50%, -50%);
+                box-shadow: 0 3px 5px rgba(0,0,0,0.15);
+                cursor: -webkit-grab;
+            `;
+        }
 
         // Set up drag start for non-touch devices
 		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
