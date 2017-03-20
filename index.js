@@ -45,7 +45,7 @@ var ComparisonSlider = function () {
 		this.underImage = ogElem.children[1];
 
 		// Set underImage width to 100%
-		this.underImage.style.cssText = 'display: block; width: 100%;';
+		this.underImage.style.cssText = 'display: block;';
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
