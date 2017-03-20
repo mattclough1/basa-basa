@@ -66,8 +66,9 @@ var Basa = function () {
 			var handleClass = this.handle.getAttribute('class');
 			this.handle.setAttribute('class', handleClass + ' ' + this.options.handleClass);
 		}
+		this.handle.position = 'absolute';
 		if (!this.options.handleClass) {
-			this.handle.style.cssText = '\n                width: 60px;\n                height: 60px;\n                border-radius: 50%;\n                background-color: #fff;\n                position: absolute;\n                top: 50%;\n                right: 0;\n                transform: translate(50%, -50%);\n                box-shadow: 0 3px 5px rgba(0,0,0,0.15);\n                cursor: -webkit-grab;\n            ';
+			this.handle.style.cssText = '\n                width: 60px;\n                height: 60px;\n                border-radius: 100%;\n                background-color: #fff;\n                position: absolute;\n                top: 50%;\n                right: 0;\n                transform: translate(50%, -50%);\n                box-shadow: 0 3px 5px rgba(0,0,0,0.15);\n                cursor: -webkit-grab;\n            ';
 		}
 
 		// Set up drag start for non-touch devices

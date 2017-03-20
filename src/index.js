@@ -50,11 +50,12 @@ class Basa {
             const handleClass = this.handle.getAttribute('class');
             this.handle.setAttribute('class', `${handleClass} ${this.options.handleClass}`);
         }
+        this.handle.position = 'absolute';
         if (!this.options.handleClass) {
             this.handle.style.cssText = `
                 width: 60px;
                 height: 60px;
-                border-radius: 50%;
+                border-radius: 100%;
                 background-color: #fff;
                 position: absolute;
                 top: 50%;
