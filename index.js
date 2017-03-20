@@ -18,7 +18,6 @@ var ComparisonSlider = function () {
 
 		// Set up state
 		this.state = {
-			loaded: 0,
 			dimensions: {},
 			dragging: false,
 			dragOrigin: {},
@@ -39,13 +38,10 @@ var ComparisonSlider = function () {
 		this.setSliderBounds = this.setSliderBounds.bind(this);
 		this.setSliderDimensions = this.setSliderDimensions.bind(this);
 		this.handleWindowResize = this.handleWindowResize.bind(this);
-		this.checkLoaded = this.checkLoaded.bind(this);
 
 		// Store images and add onload listeners
 		this.overImage = elem.children[0];
 		this.underImage = elem.children[1];
-		this.overImage.addEventListener('load', this.checkLoaded);
-		this.underImage.addEventListener('load', this.checkLoaded);
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
@@ -94,23 +90,19 @@ var ComparisonSlider = function () {
 		elem.innerHTML = '';
 		elem.appendChild(this.wrapper);
 		elem.imageCompare = this;
+
+		// Init on window load
+		window.addEventListener('load', this.init);
 	}
 
 	_createClass(ComparisonSlider, [{
-		key: 'checkLoaded',
-		value: function checkLoaded() {
-			if (this.state.loaded === 1) {
-				this.init();
-			} else {
-				this.state.loaded += 1;
-			}
-		}
-	}, {
 		key: 'init',
 		value: function init() {
+			console.log('init');
 			// Set underImage to 100% width
 			this.underImage.style.cssText = 'display: block; width: 100%;';
-			this.overImage.style.cssText = 'display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover;';
+			this.overImage.style.cssText = 'display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover; max-width: none;';
+			console.log('display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover; max-width: none;');
 
 			// Set padding for handle overflow
 
