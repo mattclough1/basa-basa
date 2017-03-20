@@ -58,9 +58,11 @@ class Basa {
             this.handle.style.cssText = `
                 width: 60px;
                 height: 60px;
+                position: absolute;
+                right: 0;
+                top: 50%;
                 border-radius: 100%;
                 background-color: #fff;
-                top: 50%;
                 transform: translate(50%, -50%);
                 box-shadow: 0 3px 5px rgba(0,0,0,0.15);
                 cursor: -webkit-grab;
