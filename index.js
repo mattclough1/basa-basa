@@ -67,8 +67,8 @@ var Basa = function () {
 			this.handle.setAttribute('class', handleClass + ' ' + this.options.handleClass);
 		}
 		// Default absolute right position
-		this.handle.position = 'absolute';
-		this.handle.right = '0';
+		this.handle.style.position = 'absolute';
+		this.handle.style.right = '0';
 		// If there are no classes for the handle, supply defaults
 		if (!this.options.handleClass) {
 			this.handle.style.cssText = '\n                width: 60px;\n                height: 60px;\n                border-radius: 100%;\n                background-color: #fff;\n                top: 50%;\n                transform: translate(50%, -50%);\n                box-shadow: 0 3px 5px rgba(0,0,0,0.15);\n                cursor: -webkit-grab;\n            ';
