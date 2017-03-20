@@ -11,7 +11,7 @@ class ComparisonSlider {
 				height: 100
 			}
 		}
-		this.originalElem = elem;
+		this.elem = elem;
 		this.options = opts;
 
 		// Bind event handlers
