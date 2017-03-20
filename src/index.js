@@ -111,6 +111,7 @@ class ComparisonSlider {
 
         this.setSliderBounds();
 		// Set underImage to 100% width
+        console.log(window.getComputedStyle(this.underImage).width);
 		this.overImage.style.width = window.getComputedStyle(this.underImage).width;
 	}
 
