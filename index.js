@@ -118,7 +118,8 @@ var ComparisonSlider = function () {
 			    handleWidth = _window$getComputedSt.width;
 
 			var handlePadding = parseInt(handleWidth) / 2;
-			this.wrapper.style.cssText = 'padding-left: ' + handlePadding + 'px; padding-right: ' + handlePadding + 'px';
+			this.wrapper.style.paddingLeft = handlePadding + 'px';
+			this.wrapper.style.paddingRight = handlePadding + 'px';
 
 			// Setup window resize listeners
 			window.addEventListener('resize', this.handleWindowResize);
