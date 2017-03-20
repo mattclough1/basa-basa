@@ -50,14 +50,16 @@ class Basa {
             const handleClass = this.handle.getAttribute('class');
             this.handle.setAttribute('class', `${handleClass} ${this.options.handleClass}`);
         }
+        // Default absolute right position
         this.handle.position = 'absolute';
+        this.handle.right = '0';
+        // If there are no classes for the handle, supply defaults
         if (!this.options.handleClass) {
             this.handle.style.cssText = `
                 width: 60px;
                 height: 60px;
                 border-radius: 100%;
                 background-color: #fff;
-                position: absolute;
                 top: 50%;
                 right: 0;
                 transform: translate(50%, -50%);
