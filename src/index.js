@@ -34,17 +34,17 @@ class ComparisonSlider {
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
-		this.wrapper.classList.add('comparison-slider__wrapper');
+		this.wrapper.classList.add('basa');
         this.wrapper.style.display = 'inline-block';
 
 		// Create slider slider element
 		this.elem = document.createElement('div');
-		this.elem.classList.add('comparison-slider');
+		this.elem.classList.add('basa__contents');
         this.elem.style.position = 'relative';
 
 		// Create handle element
 		this.handle = document.createElement('div');
-		this.handle.classList.add('comparison-slider__handle');
+		this.handle.classList.add('basa__handle');
         // Set handle class to class in options if it exists
         if (this.options.handleClass) {
             const handleClass = this.handle.getAttribute('class');
@@ -71,12 +71,12 @@ class ComparisonSlider {
 
 		// Create shade element
 		this.shade = document.createElement('div');
-		this.shade.classList.add('comparison-slider__shade');
+		this.shade.classList.add('basa__shade');
 		this.shade.style.cssText = 'position: absolute; top: 0; left: 0; height: 100%;';
 
 		// Create shade image wrapper
 		this.shadeImageWrapper = document.createElement('div');
-		this.shadeImageWrapper.classList.add('comparison-slider__shade-wrapper');
+		this.shadeImageWrapper.classList.add('basa__shade-wrapper');
 		this.shadeImageWrapper.style.cssText = 'width: 100%; overflow: hidden; height: 100%;';
 
 		// Put everything together
@@ -111,7 +111,6 @@ class ComparisonSlider {
 
         this.setSliderBounds();
 		// Set underImage to 100% width
-        console.log(window.getComputedStyle(this.underImage).width);
 		this.overImage.style.width = window.getComputedStyle(this.underImage).width;
 	}
 
@@ -204,7 +203,9 @@ export default function basabasa(selector, options) {
 		console.log(`Argument "${selector}" isn't a valid argument for basabasa`);
 	}
 
-	elements.forEach((slider) => {
+	const instances = elements.map((slider) => {
 		new ComparisonSlider(slider, options);
 	});
+
+    return instances
 }
