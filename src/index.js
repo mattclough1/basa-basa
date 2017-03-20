@@ -100,10 +100,6 @@ class ComparisonSlider {
 	}
 
 	init() {
-        this.setSliderBounds();
-		// Set underImage to 100% width
-		this.overImage.style.width = window.getComputedStyle(this.underImage).width;
-
 		// Set padding for handle overflow
 		const { width: handleWidth } = window.getComputedStyle(this.handle);
 		const handlePadding = parseInt(handleWidth) / 2;
@@ -112,6 +108,10 @@ class ComparisonSlider {
 
 		// Setup window resize listeners
 		window.addEventListener('resize', this.handleWindowResize);
+
+        this.setSliderBounds();
+		// Set underImage to 100% width
+		this.overImage.style.width = window.getComputedStyle(this.underImage).width;
 	}
 
 	setSliderDimensions() {
