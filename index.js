@@ -6,18 +6,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-exports.default = basaBasa;
+exports.default = basabasa;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var BasaBasa = function () {
-	function BasaBasa(elem) {
+var ComparisonSlider = function () {
+	function ComparisonSlider(elem) {
 		var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-		_classCallCheck(this, BasaBasa);
+		_classCallCheck(this, ComparisonSlider);
 
 		// Set up state
 		this.state = {
+			loaded: 0,
 			dimensions: {},
 			dragging: false,
 			dragOrigin: {},
@@ -27,6 +28,7 @@ var BasaBasa = function () {
 				height: 100
 			}
 		};
+		this.originalElem = elem;
 		this.options = opts;
 
 		// Bind event handlers
@@ -37,32 +39,35 @@ var BasaBasa = function () {
 		this.setSliderBounds = this.setSliderBounds.bind(this);
 		this.setSliderDimensions = this.setSliderDimensions.bind(this);
 		this.handleWindowResize = this.handleWindowResize.bind(this);
+		this.checkLoaded = this.checkLoaded.bind(this);
 
-		// Store images
+		// Store images and add onload listeners
 		this.overImage = elem.children[0];
 		this.underImage = elem.children[1];
+		this.overImage.addEventListener('load', this.checkLoaded);
+		this.underImage.addEventListener('load', this.checkLoaded);
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
-		this.wrapper.classList.add('basabasa__wrapper');
+		this.wrapper.classList.add('comparison-slider__wrapper');
 
 		// Create slider slider element
 		this.elem = document.createElement('div');
-		this.elem.classList.add('basabasa__element');
+		this.elem.classList.add('comparison-slider');
 
 		// Create handle element
 		this.handle = document.createElement('div');
-		this.handle.classList.add('basabasa__handle');
+		this.handle.classList.add('comparison-slider__handle');
 		this.handle.setAttribute('class', this.handle.getAttribute('class') + ' ' + this.options.handleClass);
 
 		// Create shade element
 		this.shade = document.createElement('div');
-		this.shade.classList.add('basabasa__shade');
+		this.shade.classList.add('comparison-slider__shade');
 		this.shade.style.height = '100%';
 
 		// Create shade image wrapper
 		this.shadeImageWrapper = document.createElement('div');
-		this.shadeImageWrapper.classList.add('basabasa__shade-wrapper');
+		this.shadeImageWrapper.classList.add('comparison-slider__shade-wrapper');
 		this.shadeImageWrapper.style.height = '100%';
 
 		// Put everything together
@@ -82,19 +87,24 @@ var BasaBasa = function () {
 		// Set initial position of shade
 		this.shade.style.width = this.state.percent.width + '%';
 
-		if (this.underImage.complete && this.underImage.naturalWidth && this.overImage.complete && this.overImage.naturalWidth) {
-			this.init(elem);
-		}
+		// Replace the original thing
+		elem.innerHTML = '';
+		elem.appendChild(this.wrapper);
+		elem.imageCompare = this;
 	}
 
-	_createClass(BasaBasa, [{
+	_createClass(ComparisonSlider, [{
+		key: 'checkLoaded',
+		value: function checkLoaded() {
+			if (this.state.loaded === 1) {
+				this.init();
+			} else {
+				this.state.loaded += 1;
+			}
+		}
+	}, {
 		key: 'init',
-		value: function init(elem) {
-			// Replace the original thing
-			elem.innerHTML = '';
-			elem.appendChild(this.wrapper);
-			elem.imageCompare = this;
-
+		value: function init() {
 			// Set underImage to 100% width
 			this.underImage.style.cssText = 'display: block; width: 100%;';
 			this.overImage.style.cssText = 'display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover;';
@@ -211,10 +221,10 @@ var BasaBasa = function () {
 		}
 	}]);
 
-	return BasaBasa;
+	return ComparisonSlider;
 }();
 
-function basaBasa(selector, options) {
+function basabasa(selector, options) {
 	var elements = void 0;
 	if (typeof selector === 'string') {
 		elements = document.querySelectorAll(selector);
@@ -223,10 +233,10 @@ function basaBasa(selector, options) {
 	} else if (selector instanceof NodeList) {
 		elements = Array.from(selector);
 	} else {
-		console.log('Argument "' + selector + '" isn\'t a valid argument for BasaBasa');
+		console.log('Argument "' + selector + '" isn\'t a valid argument for basabasa');
 	}
 
 	elements.forEach(function (slider) {
-		new BasaBasa(slider, options);
+		new ComparisonSlider(slider, options);
 	});
 }

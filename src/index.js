@@ -1,7 +1,8 @@
-class BasaBasa {
+class ComparisonSlider {
 	constructor(elem, opts = {}) {
 		// Set up state
 		this.state = {
+			loaded: 0,
 			dimensions: {},
 			dragging: false,
 			dragOrigin: {},
@@ -11,6 +12,7 @@ class BasaBasa {
 				height: 100
 			}
 		}
+		this.originalElem = elem;
 		this.options = opts;
 
 		// Bind event handlers
@@ -21,32 +23,35 @@ class BasaBasa {
 		this.setSliderBounds = this.setSliderBounds.bind(this);
 		this.setSliderDimensions = this.setSliderDimensions.bind(this);
 		this.handleWindowResize = this.handleWindowResize.bind(this);
+		this.checkLoaded = this.checkLoaded.bind(this);
 
-		// Store images
+		// Store images and add onload listeners
 		this.overImage = elem.children[0];
 		this.underImage = elem.children[1];
+		this.overImage.addEventListener('load', this.checkLoaded);
+		this.underImage.addEventListener('load', this.checkLoaded);
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
-		this.wrapper.classList.add('basabasa__wrapper');
+		this.wrapper.classList.add('comparison-slider__wrapper');
 
 		// Create slider slider element
 		this.elem = document.createElement('div');
-		this.elem.classList.add('basabasa__element');
+		this.elem.classList.add('comparison-slider');
 
 		// Create handle element
 		this.handle = document.createElement('div');
-		this.handle.classList.add('basabasa__handle');
+		this.handle.classList.add('comparison-slider__handle');
 		this.handle.setAttribute('class', `${this.handle.getAttribute('class')} ${this.options.handleClass}`);
 
 		// Create shade element
 		this.shade = document.createElement('div');
-		this.shade.classList.add('basabasa__shade');
+		this.shade.classList.add('comparison-slider__shade');
 		this.shade.style.height = '100%';
 
 		// Create shade image wrapper
 		this.shadeImageWrapper = document.createElement('div');
-		this.shadeImageWrapper.classList.add('basabasa__shade-wrapper');
+		this.shadeImageWrapper.classList.add('comparison-slider__shade-wrapper');
 		this.shadeImageWrapper.style.height = '100%';
 
 		// Put everything together
@@ -66,17 +71,21 @@ class BasaBasa {
 		// Set initial position of shade
 		this.shade.style.width = `${this.state.percent.width}%`;
 
-		if ((this.underImage.complete && this.underImage.naturalWidth) && (this.overImage.complete && this.overImage.naturalWidth)) {
-			this.init(elem);
-		}
-	}
-
-	init(elem) {
 		// Replace the original thing
 		elem.innerHTML = '';
 		elem.appendChild(this.wrapper);
 		elem.imageCompare = this;
+	}
 
+	checkLoaded() {
+		if (this.state.loaded === 1) {
+			this.init();
+		} else {
+			this.state.loaded += 1;
+		}
+	}
+
+	init() {
 		// Set underImage to 100% width
 		this.underImage.style.cssText = 'display: block; width: 100%;';
 		this.overImage.style.cssText = `display: block; width: ${window.getComputedStyle(this.underImage).width}; height: 100%; object-fit: cover;`;
@@ -167,7 +176,7 @@ class BasaBasa {
 	}
 }
 
-export default function basaBasa(selector, options) {
+export default function basabasa(selector, options) {
 	let elements;
 	if (typeof(selector) === 'string') {
 		elements = document.querySelectorAll(selector);
@@ -176,10 +185,10 @@ export default function basaBasa(selector, options) {
 	} else if (selector instanceof NodeList) {
 		elements = Array.from(selector);
 	} else {
-		console.log(`Argument "${selector}" isn't a valid argument for BasaBasa`);
+		console.log(`Argument "${selector}" isn't a valid argument for basabasa`);
 	}
 
 	elements.forEach((slider) => {
-		new BasaBasa(slider, options);
+		new ComparisonSlider(slider, options);
 	});
 }
