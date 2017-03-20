@@ -11,7 +11,7 @@ exports.default = basabasa;
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ComparisonSlider = function () {
-	function ComparisonSlider(elem) {
+	function ComparisonSlider(ogElem) {
 		var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 		_classCallCheck(this, ComparisonSlider);
@@ -27,7 +27,7 @@ var ComparisonSlider = function () {
 				height: 100
 			}
 		};
-		this.originalElem = elem;
+		this.ogElem = ogElem;
 		this.options = opts;
 
 		// Bind event handlers
@@ -40,9 +40,12 @@ var ComparisonSlider = function () {
 		this.handleWindowResize = this.handleWindowResize.bind(this);
 		this.init = this.init.bind(this);
 
-		// Store images and add onload listeners
+		// Store images
 		this.overImage = elem.children[0];
 		this.underImage = elem.children[1];
+
+		// Set underImage width to 100%
+		this.underImage.style.cssText = 'display: block; width: 100%;';
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
@@ -57,8 +60,18 @@ var ComparisonSlider = function () {
 		// Create handle element
 		this.handle = document.createElement('div');
 		this.handle.classList.add('comparison-slider__handle');
+		// Set handle class to class in options if it exists
+		if (this.options.handleClass) {
+			var handleClass = this.handle.getAttribute('class');
+			this.handle.setAttribute('class', handleClass + ' ' + this.options.handleClass);
+		}
 		this.handle.style.cssText = '\n            width: 60px;\n            height: 60px;\n            border-radius: 50%;\n            background-color: #fff;\n            position: absolute;\n            top: 50%;\n            right: 0;\n            transform: translate(50%, -50%);\n            box-shadow: 0 3px 5px rgba(0,0,0,0.15);\n            cursor: -webkit-grab;\n        ';
-		this.handle.setAttribute('class', this.handle.getAttribute('class') + ' ' + this.options.handleClass);
+
+		// Set up drag start for non-touch devices
+		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
+
+		// Set up drag start for touch devices
+		this.handle.addEventListener('touchstart', this.handleSliderDragStart);
 
 		// Create shade element
 		this.shade = document.createElement('div');
@@ -78,19 +91,13 @@ var ComparisonSlider = function () {
 		this.elem.appendChild(this.shade);
 		this.wrapper.appendChild(this.elem);
 
-		// Set up start for non-touch devices
-		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
-
-		// Set up start for touch devices
-		this.handle.addEventListener('touchstart', this.handleSliderDragStart);
-
 		// Set initial position of shade
 		this.shade.style.width = this.state.percent.width + '%';
 
 		// Replace the original thing
-		elem.innerHTML = '';
-		elem.appendChild(this.wrapper);
-		elem.imageCompare = this;
+		this.ogElem.innerHTML = '';
+		this.ogElem.appendChild(this.wrapper);
+		this.ogElem.imageCompare = this;
 
 		// Init on window load
 		window.addEventListener('load', this.init);
@@ -99,9 +106,8 @@ var ComparisonSlider = function () {
 	_createClass(ComparisonSlider, [{
 		key: 'init',
 		value: function init() {
-			// Set underImage to 100% width
+			// Set overImage styles,
 			this.overImage.style.cssText = 'display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover; max-width: none;';
-			this.underImage.style.cssText = 'display: block; width: 100%;';
 
 			// Set padding for handle overflow
 
