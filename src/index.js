@@ -1,4 +1,4 @@
-class ComparisonSlider {
+class Basa {
 	constructor(ogElem, opts = {}) {
 		// Set up state
 		this.state = {
@@ -93,7 +93,7 @@ class ComparisonSlider {
         // Replace the original thing
 		this.ogElem.innerHTML = '';
 		this.ogElem.appendChild(this.wrapper);
-		this.ogElem.imageCompare = this;
+		this.ogElem.Basa = this;
 
         // Init on window load
         window.addEventListener('load', this.init);
@@ -204,7 +204,7 @@ export default function basabasa(selector, options) {
 	}
 
 	const instances = elements.map((slider) => {
-		new ComparisonSlider(slider, options);
+		new Basa(slider, options);
 	});
 
     return instances

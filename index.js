@@ -10,11 +10,11 @@ exports.default = basabasa;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ComparisonSlider = function () {
-	function ComparisonSlider(ogElem) {
+var Basa = function () {
+	function Basa(ogElem) {
 		var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-		_classCallCheck(this, ComparisonSlider);
+		_classCallCheck(this, Basa);
 
 		// Set up state
 		this.state = {
@@ -98,13 +98,13 @@ var ComparisonSlider = function () {
 		// Replace the original thing
 		this.ogElem.innerHTML = '';
 		this.ogElem.appendChild(this.wrapper);
-		this.ogElem.imageCompare = this;
+		this.ogElem.Basa = this;
 
 		// Init on window load
 		window.addEventListener('load', this.init);
 	}
 
-	_createClass(ComparisonSlider, [{
+	_createClass(Basa, [{
 		key: 'init',
 		value: function init() {
 			// Set padding for handle overflow
@@ -223,7 +223,7 @@ var ComparisonSlider = function () {
 		}
 	}]);
 
-	return ComparisonSlider;
+	return Basa;
 }();
 
 function basabasa(selector, options) {
@@ -239,7 +239,7 @@ function basabasa(selector, options) {
 	}
 
 	var instances = elements.map(function (slider) {
-		new ComparisonSlider(slider, options);
+		new Basa(slider, options);
 	});
 
 	return instances;
