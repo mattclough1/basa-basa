@@ -44,8 +44,9 @@ var ComparisonSlider = function () {
 		this.overImage = ogElem.children[0];
 		this.underImage = ogElem.children[1];
 
-		// Set underImage width to 100%
+		// Set image styles
 		this.underImage.style.cssText = 'display: block;';
+		this.overImage.style.cssText = 'display: block; height: 100%; object-fit: cover; max-width: none;';
 
 		// Create wrapper
 		this.wrapper = document.createElement('div');
@@ -106,14 +107,7 @@ var ComparisonSlider = function () {
 	_createClass(ComparisonSlider, [{
 		key: 'init',
 		value: function init() {
-			// Set slider bounds
-			this.setSliderBounds();
-
-			// Set overImage styles,
-			this.overImage.style.cssText = 'display: block; width: ' + window.getComputedStyle(this.underImage).width + '; height: 100%; object-fit: cover; max-width: none;';
-
 			// Set padding for handle overflow
-
 			var _window$getComputedSt = window.getComputedStyle(this.handle),
 			    handleWidth = _window$getComputedSt.width;
 
@@ -123,6 +117,11 @@ var ComparisonSlider = function () {
 
 			// Setup window resize listeners
 			window.addEventListener('resize', this.handleWindowResize);
+
+			this.setSliderBounds();
+			// Set underImage to 100% width
+			console.log(window.getComputedStyle(this.underImage).width);
+			this.overImage.style.width = window.getComputedStyle(this.underImage).width;
 		}
 	}, {
 		key: 'setSliderDimensions',
