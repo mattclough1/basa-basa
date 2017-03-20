@@ -11,7 +11,9 @@ exports.default = basaBasa;
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BasaBasa = function () {
-	function BasaBasa(elem, opts) {
+	function BasaBasa(elem) {
+		var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
 		_classCallCheck(this, BasaBasa);
 
 		// Set up state
