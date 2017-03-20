@@ -50,25 +50,28 @@ var ComparisonSlider = function () {
 		// Create wrapper
 		this.wrapper = document.createElement('div');
 		this.wrapper.classList.add('comparison-slider__wrapper');
+		this.wrapper.style.display = 'inline-block';
 
 		// Create slider slider element
 		this.elem = document.createElement('div');
 		this.elem.classList.add('comparison-slider');
+		this.elem.style.position = 'relative';
 
 		// Create handle element
 		this.handle = document.createElement('div');
 		this.handle.classList.add('comparison-slider__handle');
+		this.handle.style.cssText = '\n            width: 60px;\n            height: 60px;\n            border-radius: 50%;\n            background-color: #fff;\n            position: absolute;\n            top: 50%;\n            right: 0;\n            transform: translate(50%, -50%);\n            box-shadow: 0 3px 5px rgba(0,0,0,0.15);\n            cursor: -webkit-grab;\n        ';
 		this.handle.setAttribute('class', this.handle.getAttribute('class') + ' ' + this.options.handleClass);
 
 		// Create shade element
 		this.shade = document.createElement('div');
 		this.shade.classList.add('comparison-slider__shade');
-		this.shade.style.height = '100%';
+		this.shade.style.cssText = 'position: absolute; top: 0; left: 0; height: 100%;';
 
 		// Create shade image wrapper
 		this.shadeImageWrapper = document.createElement('div');
 		this.shadeImageWrapper.classList.add('comparison-slider__shade-wrapper');
-		this.shadeImageWrapper.style.height = '100%';
+		this.shadeImageWrapper.style.cssText = 'width: 100%; overflow: hidden; height: 100%;';
 
 		// Put everything together
 		this.shadeImageWrapper.appendChild(this.overImage);
