@@ -22,11 +22,14 @@ class Basa {
 		this.setSliderBounds = this.setSliderBounds.bind(this);
 		this.setSliderDimensions = this.setSliderDimensions.bind(this);
 		this.handleWindowResize = this.handleWindowResize.bind(this);
+		this.handleImageLoad = this.handleImageLoad.bind(this);
         this.init = this.init.bind(this);
 
 		// Store images
 		this.overImage = ogElem.children[0];
+		this.overImage.addEventListener('load', this.handleImageLoad);
 		this.underImage = ogElem.children[1];
+		this.underImage.addEventListener('load', this.handleImageLoad);
 
         // Set image styles
         this.underImage.style.cssText = 'display: block;';
@@ -103,6 +106,12 @@ class Basa {
 
         // Init on window load
         window.addEventListener('load', this.init);
+	}
+
+	handleImageLoad() {
+		this.setSliderBounds();
+		// Set underImage to 100% width
+		this.overImage.style.width = window.getComputedStyle(this.underImage).width;
 	}
 
 	init() {
