@@ -1,4 +1,4 @@
-class Basa {
+class BasaBasa {
 	constructor(ogElem, opts = {}) {
 		// Set up state
 		this.state = {

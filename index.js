@@ -10,11 +10,11 @@ exports.default = basaBasa;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Basa = function () {
-	function Basa(ogElem) {
+var BasaBasa = function () {
+	function BasaBasa(ogElem) {
 		var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-		_classCallCheck(this, Basa);
+		_classCallCheck(this, BasaBasa);
 
 		// Set up state
 		this.state = {
@@ -113,7 +113,7 @@ var Basa = function () {
 		window.addEventListener('load', this.init);
 	}
 
-	_createClass(Basa, [{
+	_createClass(BasaBasa, [{
 		key: 'handleImageLoad',
 		value: function handleImageLoad() {
 			this.setSliderBounds();
@@ -239,7 +239,7 @@ var Basa = function () {
 		}
 	}]);
 
-	return Basa;
+	return BasaBasa;
 }();
 
 function basaBasa(selector, options) {
