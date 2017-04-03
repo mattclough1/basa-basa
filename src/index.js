@@ -221,7 +221,7 @@ export default function basaBasa(selector, options) {
     }
 
 	const instances = elements.map((slider) => {
-		new Basa(slider, options);
+		new BasaBasa(slider, options);
 	});
 
     return instances
