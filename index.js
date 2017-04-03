@@ -257,7 +257,7 @@ function basaBasa(selector, options) {
 	}
 
 	var instances = elements.map(function (slider) {
-		new Basa(slider, options);
+		new BasaBasa(slider, options);
 	});
 
 	return instances;
