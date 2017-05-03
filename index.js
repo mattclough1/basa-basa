@@ -123,13 +123,15 @@ var BasaBasa = function () {
 	}, {
 		key: 'init',
 		value: function init() {
-			// Set padding for handle overflow
-			var _window$getComputedSt = window.getComputedStyle(this.handle),
-			    handleWidth = _window$getComputedSt.width;
+			if (this.options.handlePadding) {
+				// Set padding for handle overflow
+				var _window$getComputedSt = window.getComputedStyle(this.handle),
+				    handleWidth = _window$getComputedSt.width;
 
-			var handlePadding = parseInt(handleWidth) / 2;
-			this.wrapper.style.paddingLeft = handlePadding + 'px';
-			this.wrapper.style.paddingRight = handlePadding + 'px';
+				var handlePadding = parseInt(handleWidth) / 2;
+				this.wrapper.style.paddingLeft = handlePadding + 'px';
+				this.wrapper.style.paddingRight = handlePadding + 'px';
+			}
 
 			// Setup window resize listeners
 			window.addEventListener('resize', this.handleWindowResize);
