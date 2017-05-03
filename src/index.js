@@ -56,21 +56,6 @@ class BasaBasa {
         // Default absolute right position
         this.handle.style.position = 'absolute';
         this.handle.style.right = '0';
-        // If there are no classes for the handle, supply defaults
-        // if (!this.options.handleClass) {
-        //     this.handle.style.cssText = `
-        //         width: 60px;
-        //         height: 60px;
-        //         position: absolute;
-        //         right: 0;
-        //         top: 50%;
-        //         border-radius: 100%;
-        //         background-color: #fff;
-        //         transform: translate(50%, -50%);
-        //         box-shadow: 0 3px 5px rgba(0,0,0,0.15);
-        //         cursor: -webkit-grab;
-        //     `;
-        // }
 
         // Set up drag start for non-touch devices
 		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
