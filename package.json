@@ -3,6 +3,7 @@
   "version": "0.0.4",
   "description": "A JS module for creating image comparison sliders",
   "main": "index.js",
+  "style": "css/basa-basa.css",
   "scripts": {
     "start": "npm run build",
     "build": "babel src/index.js --out-file index.js",
