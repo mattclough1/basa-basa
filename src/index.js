@@ -15,7 +15,8 @@ class BasaBasa {
 		this.options = opts;
 
         // If JS doesn't receive an options arg, check if there's a basa-basa data attr in the html
-        const dataset = this.ogElem.dataset['basaBasa'];
+        // Also ensure that the JSON format is correct. User could potentially use single quotes inside double quotes
+        const dataset = this.ogElem.dataset['basaBasa'].replace(/([^\\])'/, '$1"');
         if (
             Object.keys(this.options).length <= 0 &&
             dataset &&
@@ -87,13 +88,15 @@ class BasaBasa {
         // Create labels if necessary
         if (this.options.leftLabel) {
             this.leftLabel = document.createElement('div');
-            this.leftLabel.classList.add('basa__label basa__label--left');
+            this.leftLabel.classList.add('basa__label');
+            this.leftLabel.classList.add('basa__label--left');
             this.leftLabel.innerText = this.options.leftLabel;
         }
 
         if (this.options.rightLabel) {
             this.rightLabel = document.createElement('div');
-            this.rightLabel.classList.add('basa__label basa__label--right');
+            this.rightLabel.classList.add('basa__label');
+            this.rightLabel.classList.add('basa__label--right');
             this.rightLabel.innerText = this.options.rightLabel;
         }
 
