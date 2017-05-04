@@ -113,8 +113,8 @@ var BasaBasa = function () {
 
 		// Put everything together
 		this.shadeImageWrapper.appendChild(this.overImage);
-		if (this.leftLabel) this.shadeImageWrapper.appendChild(leftLabel);
-		if (this.rightLabel) this.elem.appendChild(rightLabel);
+		if (this.leftLabel) this.shadeImageWrapper.appendChild(this.leftLabel);
+		if (this.rightLabel) this.elem.appendChild(this.rightLabel);
 		this.shade.appendChild(this.shadeImageWrapper);
 		this.shade.appendChild(this.handle);
 		this.elem.appendChild(this.underImage);
