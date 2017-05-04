@@ -92,9 +92,14 @@ var BasaBasa = function () {
 		this.shade.style.cssText = 'position: absolute; top: 0; left: 0; height: 100%;';
 
 		// Create shade image wrapper
-		this.shadeImageWrapper = document.createElement('div');
-		this.shadeImageWrapper.classList.add('basa__shade-wrapper');
-		this.shadeImageWrapper.style.cssText = 'width: 100%; overflow: hidden; height: 100%;';
+		this.shadeContainer = document.createElement('div');
+		this.shadeContainer.classList.add('basa__shade-container');
+		this.shadeContainer.style.cssText = 'width: 100%; overflow: hidden; height: 100%;';
+
+		// Create inner shade area
+		this.innerShade = document.createElement('div');
+		this.innerShade.classList.add('basa__inner-shade');
+		this.innerShade.style.cssText = 'height: 100%; position: relative;';
 
 		// Create labels if necessary
 		if (this.options.leftLabel) {
@@ -112,13 +117,14 @@ var BasaBasa = function () {
 		}
 
 		// Put everything together
-		this.shadeImageWrapper.appendChild(this.overImage);
-		if (this.leftLabel) this.shadeImageWrapper.appendChild(this.leftLabel);
-		if (this.rightLabel) this.elem.appendChild(this.rightLabel);
-		this.shade.appendChild(this.shadeImageWrapper);
+		this.innerShade.appendChild(this.overImage);
+		if (this.leftLabel) this.innerShade.appendChild(this.leftLabel);
+		this.shadeContainer.appendChild(this.innerShade);
+		this.shade.appendChild(this.shadeContainer);
 		this.shade.appendChild(this.handle);
 		this.elem.appendChild(this.underImage);
 		this.elem.appendChild(this.shade);
+		if (this.rightLabel) this.elem.appendChild(this.rightLabel);
 		this.wrapper.appendChild(this.elem);
 
 		// Set initial position of shade
@@ -138,7 +144,7 @@ var BasaBasa = function () {
 		value: function handleImageLoad() {
 			this.setSliderBounds();
 			// Set underImage to 100% width
-			this.overImage.style.width = window.getComputedStyle(this.underImage).width;
+			this.innerShade.style.width = window.getComputedStyle(this.underImage).width;
 		}
 	}, {
 		key: 'init',
@@ -158,7 +164,7 @@ var BasaBasa = function () {
 
 			this.setSliderBounds();
 			// Set underImage to 100% width
-			this.overImage.style.width = window.getComputedStyle(this.underImage).width;
+			this.innerShade.style.width = window.getComputedStyle(this.underImage).width;
 		}
 	}, {
 		key: 'setSliderDimensions',
@@ -196,7 +202,7 @@ var BasaBasa = function () {
 		value: function handleWindowResize() {
 			this.setSliderBounds();
 			// Set underImage to 100% width
-			this.overImage.style.width = window.getComputedStyle(this.underImage).width;
+			this.innerShade.style.width = window.getComputedStyle(this.underImage).width;
 		}
 	}, {
 		key: 'handleSliderDragStart',
