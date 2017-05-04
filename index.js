@@ -32,7 +32,7 @@ var BasaBasa = function () {
 
 		// If JS doesn't receive an options arg, check if there's a basa-basa data attr in the html
 		// Also ensure that the JSON format is correct. User could potentially use single quotes inside double quotes
-		var dataset = this.ogElem.dataset['basaBasa'].replace(/([^\\])'/, '$1"');
+		var dataset = this.ogElem.dataset['basaBasa'] && this.ogElem.dataset['basaBasa'].replace(/([^\\])'/g, '$1"');
 		if (Object.keys(this.options).length <= 0 && dataset && JSON.parse(dataset) && Object.keys(JSON.parse(dataset)).length > 0) {
 			this.options = JSON.parse(dataset);
 		}
