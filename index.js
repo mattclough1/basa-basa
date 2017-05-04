@@ -30,6 +30,12 @@ var BasaBasa = function () {
 		this.ogElem = ogElem;
 		this.options = opts;
 
+		// If JS doesn't receive an options arg, check if there's a basa-basa data attr in the html
+		var dataset = this.ogElem.dataset['basaBasa'];
+		if (Object.keys(this.options).length <= 0 && dataset && JSON.parse(dataset) && Object.keys(JSON.parse(dataset)).length > 0) {
+			this.options = JSON.parse(dataset);
+		}
+
 		// Bind event handlers
 		this.handleSliderDragStart = this.handleSliderDragStart.bind(this);
 		this.handleSliderDrag = this.handleSliderDrag.bind(this);
@@ -72,21 +78,6 @@ var BasaBasa = function () {
 		// Default absolute right position
 		this.handle.style.position = 'absolute';
 		this.handle.style.right = '0';
-		// If there are no classes for the handle, supply defaults
-		// if (!this.options.handleClass) {
-		//     this.handle.style.cssText = `
-		//         width: 60px;
-		//         height: 60px;
-		//         position: absolute;
-		//         right: 0;
-		//         top: 50%;
-		//         border-radius: 100%;
-		//         background-color: #fff;
-		//         transform: translate(50%, -50%);
-		//         box-shadow: 0 3px 5px rgba(0,0,0,0.15);
-		//         cursor: -webkit-grab;
-		//     `;
-		// }
 
 		// Set up drag start for non-touch devices
 		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
@@ -104,8 +95,23 @@ var BasaBasa = function () {
 		this.shadeImageWrapper.classList.add('basa__shade-wrapper');
 		this.shadeImageWrapper.style.cssText = 'width: 100%; overflow: hidden; height: 100%;';
 
+		// Create labels if necessary
+		if (this.options.leftLabel) {
+			this.leftLabel = document.createElement('div');
+			this.leftLabel.classList.add('basa__label basa__label--left');
+			this.leftLabel.innerText = this.options.leftLabel;
+		}
+
+		if (this.options.rightLabel) {
+			this.rightLabel = document.createElement('div');
+			this.rightLabel.classList.add('basa__label basa__label--right');
+			this.rightLabel.innerText = this.options.rightLabel;
+		}
+
 		// Put everything together
 		this.shadeImageWrapper.appendChild(this.overImage);
+		if (this.leftLabel) this.shadeImageWrapper.appendChild(leftLabel);
+		if (this.rightLabel) this.elem.appendChild(rightLabel);
 		this.shade.appendChild(this.shadeImageWrapper);
 		this.shade.appendChild(this.handle);
 		this.elem.appendChild(this.underImage);

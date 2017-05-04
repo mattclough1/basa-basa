@@ -14,6 +14,17 @@ class BasaBasa {
 		this.ogElem = ogElem;
 		this.options = opts;
 
+        // If JS doesn't receive an options arg, check if there's a basa-basa data attr in the html
+        const dataset = this.ogElem.dataset['basaBasa'];
+        if (
+            Object.keys(this.options).length <= 0 &&
+            dataset &&
+            JSON.parse(dataset) &&
+            Object.keys(JSON.parse(dataset)).length > 0
+        ) {
+            this.options = JSON.parse(dataset);
+        }
+
 		// Bind event handlers
 		this.handleSliderDragStart = this.handleSliderDragStart.bind(this);
 		this.handleSliderDrag = this.handleSliderDrag.bind(this);
@@ -73,8 +84,23 @@ class BasaBasa {
 		this.shadeImageWrapper.classList.add('basa__shade-wrapper');
 		this.shadeImageWrapper.style.cssText = 'width: 100%; overflow: hidden; height: 100%;';
 
+        // Create labels if necessary
+        if (this.options.leftLabel) {
+            this.leftLabel = document.createElement('div');
+            this.leftLabel.classList.add('basa__label basa__label--left');
+            this.leftLabel.innerText = this.options.leftLabel;
+        }
+
+        if (this.options.rightLabel) {
+            this.rightLabel = document.createElement('div');
+            this.rightLabel.classList.add('basa__label basa__label--right');
+            this.rightLabel.innerText = this.options.rightLabel;
+        }
+
 		// Put everything together
 		this.shadeImageWrapper.appendChild(this.overImage);
+        if (this.leftLabel) this.shadeImageWrapper.appendChild(leftLabel);
+        if (this.rightLabel) this.elem.appendChild(rightLabel);
 		this.shade.appendChild(this.shadeImageWrapper);
 		this.shade.appendChild(this.handle);
 		this.elem.appendChild(this.underImage);
