@@ -11,3 +11,23 @@
     box-shadow: rgba(0, 0, 0, 0.14902) 0px 3px 5px;
     cursor: -webkit-grab;
 }
+
+.basa__label {
+    position: absolute;
+    top: 16px;
+    padding: 8px;
+
+    color: white;
+
+    background-color: #000000;
+}
+
+.basa__label--left {
+    left: 25%;
+    transform: translateX(-50%);
+}
+
+.basa__label--right {
+    right: 25%;
+    transform: translateX(50%);
+}
