@@ -209,8 +209,6 @@ var BasaBasa = function () {
 		value: function handleSliderDragStart(e) {
 			var clientX = e.clientX || e.touches[0].clientX;
 			var clientY = e.clientY || e.touches[0].clientY;
-			// Prevent drag action from highlighting underlying content
-			e.preventDefault();
 			// Set the bounds and dimensions of the slider on the screen
 			this.setSliderBounds();
 			this.setSliderDimensions();
