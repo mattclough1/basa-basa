@@ -9,7 +9,11 @@
     background-color: rgb(255, 255, 255);
     transform: translate(50%, -50%);
     box-shadow: rgba(0, 0, 0, 0.14902) 0px 3px 5px;
+    cursor: pointer;
     cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+
 }
 
 .basa__label {
