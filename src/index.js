@@ -14,17 +14,17 @@ class BasaBasa {
 		this.ogElem = ogElem;
 		this.options = opts;
 
-        // If JS doesn't receive an options arg, check if there's a basa-basa data attr in the html
-        // Also ensure that the JSON format is correct. User could potentially use single quotes inside double quotes
-        const dataset = this.ogElem.dataset['basaBasa'] && this.ogElem.dataset['basaBasa'].replace(/([^\\])'/g, '$1"');
-        if (
-            Object.keys(this.options).length <= 0 &&
-            dataset &&
-            JSON.parse(dataset) &&
-            Object.keys(JSON.parse(dataset)).length > 0
-        ) {
-            this.options = JSON.parse(dataset);
-        }
+    // If JS doesn't receive an options arg, check if there's a basa-basa data attr in the html
+    // Also ensure that the JSON format is correct. User could potentially use single quotes inside double quotes
+    const dataset = this.ogElem.dataset['basaBasa'] && this.ogElem.dataset['basaBasa'].replace(/([^\\])'/g, '$1"');
+    if (
+        Object.keys(this.options).length <= 0 &&
+        dataset &&
+        JSON.parse(dataset) &&
+        Object.keys(JSON.parse(dataset)).length > 0
+    ) {
+        this.options = JSON.parse(dataset);
+    }
 
 		// Bind event handlers
 		this.handleSliderDragStart = this.handleSliderDragStart.bind(this);
@@ -35,7 +35,7 @@ class BasaBasa {
 		this.setSliderDimensions = this.setSliderDimensions.bind(this);
 		this.handleWindowResize = this.handleWindowResize.bind(this);
 		this.handleImageLoad = this.handleImageLoad.bind(this);
-        this.init = this.init.bind(this);
+    this.init = this.init.bind(this);
 
 		// Store images
 		this.overImage = ogElem.children[0];
@@ -43,33 +43,29 @@ class BasaBasa {
 		this.underImage = ogElem.children[1];
 		this.underImage.addEventListener('load', this.handleImageLoad);
 
-        // Set image styles
-        this.underImage.style.cssText = 'display: block;';
-        this.overImage.style.cssText = `display: block; height: 100%; object-fit: cover; max-width: none;`;
-
 		// Create wrapper
 		this.wrapper = document.createElement('div');
 		this.wrapper.classList.add('basa');
-        this.wrapper.style.display = 'inline-block';
+    this.wrapper.style.display = 'inline-block';
 
 		// Create slider slider element
 		this.elem = document.createElement('div');
 		this.elem.classList.add('basa__contents');
-        this.elem.style.position = 'relative';
+    this.elem.style.position = 'relative';
 
 		// Create handle element
 		this.handle = document.createElement('div');
 		this.handle.classList.add('basa__handle');
-        // Set handle class to class in options if it exists
-        if (this.options.handleClass) {
-            const handleClass = this.handle.getAttribute('class');
-            this.handle.setAttribute('class', `${handleClass} ${this.options.handleClass}`);
-        }
-        // Default absolute right position
-        this.handle.style.position = 'absolute';
-        this.handle.style.right = '0';
+    // Set handle class to class in options if it exists
+    if (this.options.handleClass) {
+        const handleClass = this.handle.getAttribute('class');
+        this.handle.setAttribute('class', `${handleClass} ${this.options.handleClass}`);
+    }
+    // Default absolute right position
+    this.handle.style.position = 'absolute';
+    this.handle.style.right = '0';
 
-        // Set up drag start for non-touch devices
+    // Set up drag start for non-touch devices
 		this.handle.addEventListener('mousedown', this.handleSliderDragStart);
 
 		// Set up drag start for touch devices
@@ -85,47 +81,75 @@ class BasaBasa {
 		this.shadeContainer.classList.add('basa__shade-container');
 		this.shadeContainer.style.cssText = 'width: 100%; overflow: hidden; height: 100%;';
 
-        // Create inner shade area
-        this.innerShade = document.createElement('div');
-        this.innerShade.classList.add('basa__inner-shade');
-        this.innerShade.style.cssText = 'height: 100%; position: relative;';
+    // Create inner shade area
+    this.innerShade = document.createElement('div');
+    this.innerShade.classList.add('basa__inner-shade');
+    this.innerShade.style.cssText = 'height: 100%; position: relative;';
 
-        // Create labels if necessary
-        if (this.options.leftLabel) {
-            this.leftLabel = document.createElement('div');
-            this.leftLabel.classList.add('basa__label');
-            this.leftLabel.classList.add('basa__label--left');
-            this.leftLabel.innerText = this.options.leftLabel;
-        }
+    // Create labels if necessary
+    if (this.options.leftLabel) {
+        this.leftLabel = document.createElement('div');
+        this.leftLabel.classList.add('basa__label');
+        this.leftLabel.classList.add('basa__label--left');
+        this.leftLabel.innerText = this.options.leftLabel;
+    }
 
-        if (this.options.rightLabel) {
-            this.rightLabel = document.createElement('div');
-            this.rightLabel.classList.add('basa__label');
-            this.rightLabel.classList.add('basa__label--right');
-            this.rightLabel.innerText = this.options.rightLabel;
-        }
+    if (this.options.rightLabel) {
+        this.rightLabel = document.createElement('div');
+        this.rightLabel.classList.add('basa__label');
+        this.rightLabel.classList.add('basa__label--right');
+        this.rightLabel.innerText = this.options.rightLabel;
+    }
+
+		// Alternative setup for browswers that don't support object-fit
+		if (!('objectFit' in document.createElement('img').style)) {
+			this.ogElem.classList.add('no-basa');
+			this.ogElem.innerHTML = '';
+
+			let topImage = this.overImage;
+			let bottomImage = this.underImage;
+			if (this.leftLabel) {
+				topImage = document.createElement('div');
+				topImage.classList.add('no-basa__image-wrapper');
+				topImage.appendChild(this.overImage);
+				topImage.appendChild(this.leftLabel);
+			}
+			if (this.rightLabel) {
+				bottomImage = document.createElement('div');
+				bottomImage.classList.add('no-basa__image-wrapper');
+				bottomImage.appendChild(this.underImage);
+				bottomImage.appendChild(this.rightLabel);
+			}
+			this.ogElem.appendChild(topImage);
+			this.ogElem.appendChild(bottomImage);
+			return;
+		}
+
+		// Set image styles
+		this.underImage.style.cssText = 'display: block;';
+		this.overImage.style.cssText = `display: block; height: 100%; object-fit: cover; max-width: none;`;
 
 		// Put everything together
-        this.innerShade.appendChild(this.overImage);
-        if (this.leftLabel) this.innerShade.appendChild(this.leftLabel);
+    this.innerShade.appendChild(this.overImage);
+    if (this.leftLabel) this.innerShade.appendChild(this.leftLabel);
 		this.shadeContainer.appendChild(this.innerShade);
 		this.shade.appendChild(this.shadeContainer);
 		this.shade.appendChild(this.handle);
 		this.elem.appendChild(this.underImage);
 		this.elem.appendChild(this.shade);
-        if (this.rightLabel) this.elem.appendChild(this.rightLabel);
+    if (this.rightLabel) this.elem.appendChild(this.rightLabel);
 		this.wrapper.appendChild(this.elem);
 
 		// Set initial position of shade
 		this.shade.style.width = `${this.state.percent.width}%`;
 
-        // Replace the original thing
+    // Replace the original thing
 		this.ogElem.innerHTML = '';
 		this.ogElem.appendChild(this.wrapper);
 		this.ogElem.Basa = this;
 
-        // Init on window load
-        window.addEventListener('load', this.init);
+    // Init on window load
+    window.addEventListener('load', this.init);
 	}
 
 	handleImageLoad() {
@@ -146,7 +170,7 @@ class BasaBasa {
 		// Setup window resize listeners
 		window.addEventListener('resize', this.handleWindowResize);
 
-        this.setSliderBounds();
+    this.setSliderBounds();
 		// Set underImage to 100% width
 		this.innerShade.style.width = window.getComputedStyle(this.underImage).width;
 	}

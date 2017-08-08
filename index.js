@@ -54,10 +54,6 @@ var BasaBasa = function () {
 		this.underImage = ogElem.children[1];
 		this.underImage.addEventListener('load', this.handleImageLoad);
 
-		// Set image styles
-		this.underImage.style.cssText = 'display: block;';
-		this.overImage.style.cssText = 'display: block; height: 100%; object-fit: cover; max-width: none;';
-
 		// Create wrapper
 		this.wrapper = document.createElement('div');
 		this.wrapper.classList.add('basa');
@@ -115,6 +111,34 @@ var BasaBasa = function () {
 			this.rightLabel.classList.add('basa__label--right');
 			this.rightLabel.innerText = this.options.rightLabel;
 		}
+
+		// Alternative setup for browswers that don't support object-fit
+		if (!('objectFit' in document.createElement('img').style)) {
+			this.ogElem.classList.add('no-basa');
+			this.ogElem.innerHTML = '';
+
+			var topImage = this.overImage;
+			var bottomImage = this.underImage;
+			if (this.leftLabel) {
+				topImage = document.createElement('div');
+				topImage.classList.add('no-basa__image-wrapper');
+				topImage.appendChild(this.overImage);
+				topImage.appendChild(this.leftLabel);
+			}
+			if (this.rightLabel) {
+				bottomImage = document.createElement('div');
+				bottomImage.classList.add('no-basa__image-wrapper');
+				bottomImage.appendChild(this.underImage);
+				bottomImage.appendChild(this.rightLabel);
+			}
+			this.ogElem.appendChild(topImage);
+			this.ogElem.appendChild(bottomImage);
+			return;
+		}
+
+		// Set image styles
+		this.underImage.style.cssText = 'display: block;';
+		this.overImage.style.cssText = 'display: block; height: 100%; object-fit: cover; max-width: none;';
 
 		// Put everything together
 		this.innerShade.appendChild(this.overImage);
